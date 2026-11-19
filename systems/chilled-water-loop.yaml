@@ -1,0 +1,24 @@
+# Chilled water distribution loop, plant room to AHUs.
+name: chilled-water-loop
+fluid:
+  name: water
+  density_kg_m3: 998.0
+  viscosity_pa_s: 0.001004
+  temperature_c: 7
+design_pressure_bar: 10.0
+test_factor: 1.5            # hydrotest at 1.5x design pressure
+pump:
+  type: end-suction centrifugal
+  head_m: 45
+  rated_pressure_bar: 16
+pipes:
+  - { id: main-header,  dn: 100, schedule: "40", length_m: 38.0, rated_pressure_bar: 20 }
+  - { id: riser-north,  dn: 80,  schedule: "40", length_m: 22.5, rated_pressure_bar: 20 }
+  - { id: ahu-branch-1, dn: 50,  schedule: "40", length_m: 9.0,  rated_pressure_bar: 20 }
+valves:
+  - { id: gv-101, type: gate,      dn: 100, rating: PN16, rated_pressure_bar: 16 }
+  - { id: cv-102, type: check,     dn: 100, rating: PN16, rated_pressure_bar: 16 }
+  - { id: bv-201, type: butterfly, dn: 80,  rating: PN16, rated_pressure_bar: 16 }
+notes: >
+  Watch cv-102 on the sweep: at 1.5x test pressure the margin is the
+  thinnest in the system. Water-hammer check on gv-101 fast close.
