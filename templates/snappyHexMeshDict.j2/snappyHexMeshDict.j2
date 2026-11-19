@@ -1,0 +1,33 @@
+/* Rendered by flowtest from {{ spec.name }}. Quality gates feed the
+   convergence ladder: if checkMesh exceeds these, remesh before solving. */
+FoamFile { version 2.0; format ascii; class dictionary; object snappyHexMeshDict; }
+
+castellatedMesh true;
+snap            true;
+addLayers       false;
+
+castellatedMeshControls
+{
+    maxLocalCells 800000;
+    maxGlobalCells 2000000;
+    minRefinementCells 10;
+    nCellsBetweenLevels 3;
+    refinementSurfaces { pipe { level ({{ refine_level }} {{ refine_level }}); } }
+}
+snapControls
+{
+    nSmoothPatch 3;
+    tolerance 2.0;
+    nSolveIter 30;
+    nRelaxIter 5;
+}
+meshQualityControls
+{
+    maxNonOrtho 65;
+    maxBoundarySkewness 20;
+    maxInternalSkewness 4;
+    maxConcave 80;
+    minVol 1e-13;
+    minDeterminant 0.001;
+    errorReduction 0.75;
+}
