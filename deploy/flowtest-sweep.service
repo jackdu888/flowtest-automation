@@ -1,0 +1,9 @@
+[Unit]
+Description=flowtest nightly pressure-test sweep
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/flowtest-automation
+ExecStart=/bin/bash -lc 'for s in systems/*.yaml; do flowtest sweep "$s"; done'
