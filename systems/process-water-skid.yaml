@@ -1,0 +1,24 @@
+# Process water skid, higher pressure class.
+name: process-water-skid
+fluid:
+  name: water
+  density_kg_m3: 997.0
+  viscosity_pa_s: 0.00089
+  temperature_c: 25
+design_pressure_bar: 25.0
+test_factor: 1.5
+pump:
+  type: multistage centrifugal
+  head_m: 180
+  rated_pressure_bar: 40
+pipes:
+  - { id: suction,   dn: 80, schedule: "80", length_m: 6.0,  rated_pressure_bar: 40 }
+  - { id: discharge, dn: 50, schedule: "80", length_m: 14.0, rated_pressure_bar: 40 }
+  - { id: bypass,    dn: 25, schedule: "80", length_m: 4.5,  rated_pressure_bar: 40 }
+valves:
+  - { id: gv-301, type: gate,  dn: 80, rating: PN40, rated_pressure_bar: 40 }
+  - { id: cv-302, type: check, dn: 50, rating: PN40, rated_pressure_bar: 40 }
+  - { id: prv-303, type: pressure-relief, dn: 25, rating: PN40, rated_pressure_bar: 40, set_pressure_bar: 28 }
+notes: >
+  PRV set below test pressure on purpose: the sweep must model it lifting
+  during the 1.5x leg, or the discharge run reads over-pressure.
